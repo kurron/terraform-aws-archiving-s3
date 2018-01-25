@@ -1,5 +1,5 @@
 # Overview
-This project is a Terraform module that creates a MySQL RDS instance.
+This project is a Terraform module that creates an S3 bucket that moves its objects into archival storage (Glacier) after a period of time.
 
 # Guidebook
 Details about this project are contained in the [guidebook](guidebook/guidebook.adoc) and should be considered mandatory reading prior to contributing to this project.

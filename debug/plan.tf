@@ -3,53 +3,34 @@ terraform {
     backend "s3" {}
 }
 
-module "rds" {
+module "bucket" {
     source = "../"
 
     region                           = "us-west-2"
-    name                             = "Debug"
+    name                             = "Debug-Bucket-One"
     project                          = "Debug"
     purpose                          = "Testing out Terraform module"
     creator                          = "kurron@jvmguy.com"
     environment                      = "development"
     freetext                         = "No notes at this time."
-    password                         = "mypassword"
-    publicly_accessible              = "true"
-    multi_az                         = "true"
-    domain_name                      = "transparent.engineering"
-    host_name                        = "debug-mysql"
-    subnet_ids                       = ["subnet-568ee830","subnet-4a33b402","subnet-ac5f72f7"]
-    vpc_security_group_ids           = ["sg-566f7a2a"]
-}
-
-output "address" {
-    value = "${module.rds.address}"
-}
-
-output "arn" {
-    value = "${module.rds.arn}"
-}
-
-output "endpoint" {
-    value = "${module.rds.endpoint}"
-}
-
-output "hosted_zone_id" {
-    value = "${module.rds.hosted_zone_id}"
 }
 
 output "id" {
-    value = "${module.rds.id}"
+    value = "${module.bucket.id}"
 }
 
-output "resource_id" {
-    value = "${module.rds.resource_id}"
+output "arn" {
+    value = "${module.bucket.arn}"
 }
 
-output "username" {
-    value = "${module.rds.username}"
+output "bucket_domain_name" {
+    value = "${module.bucket.bucket_domain_name}"
 }
 
-output "fqdn" {
-    value = "${module.rds.fqdn}"
+output "hosted_zone_id" {
+    value = "${module.bucket.hosted_zone_id}"
+}
+
+output "region" {
+    value = "${module.bucket.region}"
 }

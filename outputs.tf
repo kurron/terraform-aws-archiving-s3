@@ -1,39 +1,24 @@
-output "address" {
-    value = "${aws_db_instance.mysql.address}"
-    description = "The address of the RDS instance."
+output "id" {
+    value = "${aws_s3_bucket.bucket.id}"
+    description = "The name of the bucket."
 }
 
 output "arn" {
-    value = "${aws_db_instance.mysql.arn}"
-    description = "The ARN of the RDS instance."
+    value = "${aws_s3_bucket.bucket.arn}"
+    description = "The ARN of the bucket. Will be of format arn:aws:s3:::bucketname."
 }
 
-output "endpoint" {
-    value = "${aws_db_instance.mysql.endpoint}"
-    description = "The connection endpoint."
+output "bucket_domain_name" {
+    value = "${aws_s3_bucket.bucket.bucket_domain_name}"
+    description = "The bucket domain name. Will be of format bucketname.s3.amazonaws.com."
 }
 
 output "hosted_zone_id" {
-    value = "${aws_db_instance.mysql.hosted_zone_id}"
-    description = "The canonical hosted zone ID of the DB instance (to be used in a Route 53 Alias record)."
+    value = "${aws_s3_bucket.bucket.hosted_zone_id}"
+    description = "The Route 53 Hosted Zone ID for this bucket's region."
 }
 
-output "id" {
-    value = "${aws_db_instance.mysql.id}"
-    description = "The RDS instance ID."
-}
-
-output "resource_id" {
-    value = "${aws_db_instance.mysql.resource_id}"
-    description = "The RDS Resource ID of this instance."
-}
-
-output "username" {
-    value = "${aws_db_instance.mysql.username}"
-    description = "The master username for the database."
-}
-
-output "fqdn" {
-    value = "${aws_route53_record.mysql.fqdn}"
-    description = "Primary DNS name based on the custom domain name."
+output "region" {
+    value = "${aws_s3_bucket.bucket.region}"
+    description = "The AWS region this bucket resides in."
 }

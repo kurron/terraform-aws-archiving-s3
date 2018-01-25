@@ -33,153 +33,50 @@ variable "freetext" {
     description = "Information that does not fit in the other tags"
 }
 
-variable "storage_size" {
+variable "force_destroy" {
     type = "string"
-    description = "How large, in GBs, to allocate for storage."
-    default = "20"
-}
-
-variable "allow_major_version_upgrade" {
-    type = "string"
-    description = "If true, permits Amazon to automatically upgrade the instance to next major version."
-    default = "true"
-}
-
-variable "apply_immediately" {
-    type = "string"
-    description = "If true, engine upgrades are done immediately, otherwise done during the next maintenance window."
+    description = "A boolean that indicates all objects should be deleted from the bucket so that the bucket can be destroyed without error. These objects are not recoverable."
     default = "false"
 }
 
-variable "auto_minor_version_upgrade" {
+variable "versioning_enabled" {
     type = "string"
-    description = "If true, permits Amazon to automatically upgrade the instance to next minor version."
-    default = "true"
+    description = "If true, object versioning is enabled. Once you version-enable a bucket, it can never return to an unversioned state. You can, however, suspend versioning on that bucket."
+    default = "false"
 }
 
-variable "availability_zone" {
+variable "mfa_delete" {
     type = "string"
-    description = "The availability zone to place the instance into."
-    default = ""
+    description = "If true, require MFA to either change the versioning state of the bucket or permanently delete an object version."
+    default = "false"
 }
 
-variable "backup_retention_period" {
+variable "acceleration_status" {
     type = "string"
-    description = "How many days to retain backups."
+    description = "Sets the accelerate configuration of an existing bucket. Can be Enabled or Suspended."
+    default = "Suspended"
+}
+
+variable "request_payer" {
+    type = "string"
+    description = "Specifies who should bear the cost of Amazon S3 data transfer. Can be either BucketOwner or Requester."
+    default = "BucketOwner"
+}
+
+variable "abort_incomplete_multipart_upload_days" {
+    type = "string"
+    description = "Specifies the number of days after initiating a multipart upload when the multipart upload must be completed. "
     default = "7"
 }
 
-variable "backup_window" {
+variable "transition_days" {
     type = "string"
-    description = "The daily time range (in UTC) during which automated backups are created, if enabled."
-    default = "00:00-02:00"
+    description = "Specifies the number of days after object creation when the transition takes effect."
+    default = "30"
 }
 
-variable "subnet_ids" {
-    type = "list"
-    description = "List of subnets ids where the instance can live, eg. [subnet-6412a148,subnet-e18b0185]"
-}
-
-variable "engine_version" {
+variable "storage_class" {
     type = "string"
-    description = "The version of MySQL to use, e.g. 5.6.17.  If left blank, the latest engine is used."
-    default = ""
-}
-
-variable "final_snapshot_identifier" {
-    type = "string"
-    description = "What to name the final snapshot when the instance is deleted.  If left blank, no snapshot is taken."
-    default = "final-snapshot"
-}
-
-variable "iam_database_authentication_enabled" {
-    type = "string"
-    description = "If true, mappings of AWS Identity and Access Management (IAM) accounts to database accounts is enabled."
-    default = "false"
-}
-
-variable "instance_class" {
-    type = "string"
-    description = "The instance type of the RDS instance, e.g. db.t2.micro"
-    default = "db.t2.micro"
-}
-
-variable "maintenance_window" {
-    type = "string"
-    description = "The window to perform maintenance in."
-    default = "Sun:03:00-Sun:05:00"
-}
-
-variable "monitoring_interval" {
-    type = "string"
-    description = "The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB instance. Valid Values: 0, 1, 5, 10, 15, 30, 60."
-    default = "0"
-}
-
-variable "monitoring_role_arn" {
-    type = "string"
-    description = "The ARN for the IAM role that permits RDS to send enhanced monitoring metrics to CloudWatch Logs, if enabled."
-    default = ""
-}
-
-variable "multi_az" {
-    type = "string"
-    description = "If true, the instance operates in multiple availability zones."
-    default = "false"
-}
-
-variable "option_group_name" {
-    type = "string"
-    description = "Name of the DB option group to associate to the instance, e.g. default.mysql56"
-    default = ""
-}
-
-variable "parameter_group_name" {
-    type = "string"
-    description = "Name of the DB parameter group to associate to the instance, e.g. default:mysql-5-6"
-    default = ""
-}
-
-variable "password" {
-    type = "string"
-    description = "Password for the master DB user.  Must be at least 8 characters, e.g. mypassword"
-}
-
-variable "publicly_accessible" {
-    type = "string"
-    description = "If true, the database can be connected via the internet."
-    default = "false"
-}
-
-variable "skip_final_snapshot" {
-    type = "string"
-    description = "If true, no database snapshot is created before the instance is deleted."
-    default = "false"
-}
-
-variable "storage_type" {
-    type = "string"
-    description = "Type of storage medium to use. Maybe one of standard, gp2, io1"
-    default = "gp2"
-}
-
-variable "username" {
-    type = "string"
-    description = "Username for the master DB user."
-    default = "master"
-}
-
-variable "vpc_security_group_ids" {
-    type = "list"
-    description = "List of VPC security groups to associate to the instance."
-}
-
-variable "domain_name" {
-    type = "string"
-    description = "Route53 managed domain name to map the instance to, e.g. example.com."
-}
-
-variable "host_name" {
-    type = "string"
-    description = "The host name to use when creating the mapping to your managed domain name, e.g. development-mysql."
+    description = "Specifies the Amazon S3 storage class to which you want the object to transition. Can be STANDARD_IA or GLACIER."
+    default = "GLACIER"
 }
