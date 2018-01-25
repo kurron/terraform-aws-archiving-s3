@@ -3,16 +3,32 @@ terraform {
     backend "s3" {}
 }
 
+module "logging" {
+    source = "kurron/expiring-s3/aws"
+    version = "0.2.0"
+
+    region        = "us-west-2"
+    name          = "Expiring-Bucket-One"
+    project       = "Debug"
+    purpose       = "Testing out Terraform module"
+    creator       = "kurron@jvmguy.com"
+    environment   = "development"
+    freetext      = "No notes at this time."
+    acl           = "log-delivery-write"
+    force_destroy = "true"
+}
+
 module "bucket" {
     source = "../"
 
-    region                           = "us-west-2"
-    name                             = "Debug-Bucket-One"
-    project                          = "Debug"
-    purpose                          = "Testing out Terraform module"
-    creator                          = "kurron@jvmguy.com"
-    environment                      = "development"
-    freetext                         = "No notes at this time."
+    region      = "us-west-2"
+    name        = "Debug-Bucket-One"
+    project     = "Debug"
+    purpose     = "Testing out Terraform module"
+    creator     = "kurron@jvmguy.com"
+    environment = "development"
+    freetext    = "No notes at this time."
+    log_bucket  = "${module.logging.id}"
 }
 
 output "id" {

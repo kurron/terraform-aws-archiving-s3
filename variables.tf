@@ -80,3 +80,14 @@ variable "storage_class" {
     description = "Specifies the Amazon S3 storage class to which you want the object to transition. Can be STANDARD_IA or GLACIER."
     default = "GLACIER"
 }
+
+variable "log_bucket" {
+    type = "string"
+    description = "The name of the bucket that will receive the log objects."
+}
+
+variable "acl" {
+    type = "string"
+    description = "The canned ACL to apply."
+    default = "private"
+}

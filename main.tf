@@ -9,6 +9,7 @@ provider "aws" {
 
 resource "aws_s3_bucket" "bucket" {
     bucket = "${lower( var.name )}"
+    acl    = "${var.acl}"
     tags   = {
         Name        = "${var.name}"
         Project     = "${var.project}"
@@ -21,6 +22,10 @@ resource "aws_s3_bucket" "bucket" {
     versioning    = {
         enabled    = "${var.versioning_enabled}"
         mfa_delete = "${var.mfa_delete}"
+    }
+    logging = {
+        target_bucket = "${var.log_bucket}"
+        target_prefix = "${lower( var.name )}/"
     }
     lifecycle_rule = {
         id                                     = "transition-to-glacier"
